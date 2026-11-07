@@ -1,0 +1,677 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>EdgeDepthAI | Depth Estimation</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">E</div>
+
+            <span>
+                EdgeDepth<span class="purple">AI</span>
+            </span>
+
+        </div>
+
+        <p class="nav-heading">WORKSPACE</p>
+
+        <a href="#dashboard" class="nav-item active">
+            <span>▦</span>
+            Dashboard
+        </a>
+
+        <a href="#estimator" class="nav-item">
+            <span>◈</span>
+            Depth Estimation
+        </a>
+
+        <a href="#datasets" class="nav-item">
+            <span>▤</span>
+            Datasets
+        </a>
+
+        <a href="#results" class="nav-item">
+            <span>▧</span>
+            Results
+        </a>
+
+        <div class="sidebar-bottom">
+
+            <div class="status-dot"></div>
+
+            <span>EdgeDepthAI Workspace</span>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================
+         MAIN CONTENT
+    ====================================== -->
+
+    <main class="main" id="dashboard">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="breadcrumb">
+                    Workspace / Dashboard
+                </p>
+
+                <h2>Depth Estimation Dashboard</h2>
+
+            </div>
+
+            <div class="top-right">
+
+                <span class="online">
+                    <i></i>
+                    System Ready
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================
+             WELCOME SECTION
+        ================================== -->
+
+        <section class="welcome">
+
+            <div>
+
+                <p class="eyebrow">
+                    COMPUTER VISION PLATFORM
+                </p>
+
+                <h1>
+                    Explore the
+                    <span class="gradient">
+                        Depth of Vision.
+                    </span>
+                </h1>
+
+                <p class="welcome-text">
+
+                    Upload images, run depth estimation
+                    and visualize your computer vision results.
+
+                </p>
+
+                <a href="#estimator" class="primary-btn">
+                    Start Estimation →
+                </a>
+
+            </div>
+
+            <div class="welcome-graphic">
+                ◉
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             DATASET SELECTION
+        ================================== -->
+
+        <section id="datasets" class="section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Select Dataset</h2>
+
+                    <p>
+                        Choose the dataset you want to work with.
+                    </p>
+
+                </div>
+
+                <span class="small-label">
+                    2 DATASETS AVAILABLE
+                </span>
+
+            </div>
+
+
+            <div class="dataset-grid">
+
+
+                <!-- NYU DATASET -->
+
+                <div class="dataset-card selected"
+                     data-dataset="nyu"
+                     onclick="selectDataset('nyu')">
+
+                    <div class="dataset-top">
+
+                        <div class="dataset-icon">
+                            🏠
+                        </div>
+
+                        <span class="dataset-tag">
+                            INDOOR
+                        </span>
+
+                    </div>
+
+                    <h3>NYU Depth V2</h3>
+
+                    <p>
+
+                        Indoor RGB images and depth information
+                        for depth estimation and reconstruction.
+
+                    </p>
+
+                    <div class="dataset-footer">
+
+                        <span>RGB + Depth Input</span>
+
+                        <span class="check">✓</span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MIDDLEBURY DATASET -->
+
+                <div class="dataset-card"
+                     data-dataset="middlebury"
+                     onclick="selectDataset('middlebury')">
+
+                    <div class="dataset-top">
+
+                        <div class="dataset-icon">
+                            📷
+                        </div>
+
+                        <span class="dataset-tag blue-tag">
+                            STEREO
+                        </span>
+
+                    </div>
+
+                    <h3>Middlebury Stereo</h3>
+
+                    <p>
+
+                        Stereo vision dataset for disparity
+                        estimation and 3D scene reconstruction.
+
+                    </p>
+
+                    <div class="dataset-footer">
+
+                        <span>Depth Reconstruction</span>
+
+                        <span class="check">✓</span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             DEPTH ESTIMATION
+        ================================== -->
+
+        <section id="estimator" class="section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Depth Reconstruction</h2>
+
+                    <p id="upload-description">
+
+                        Upload an RGB image and its
+                        corresponding depth map.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="upload-panel">
+
+
+                <!-- IMAGE UPLOADS -->
+
+                <div class="upload-grid">
+
+
+                    <!-- RGB IMAGE -->
+
+                    <div>
+
+                        <label class="upload-box"
+                               for="rgb-image">
+
+                            <div class="upload-icon">
+                                ↑
+                            </div>
+
+                            <h3>RGB Guidance Image</h3>
+
+                            <p>
+                                Upload the original RGB image
+                            </p>
+
+                            <span>
+                                PNG, JPG, JPEG, TIFF
+                            </span>
+
+                            <input
+                                type="file"
+                                id="rgb-image"
+                                accept=".png,.jpg,.jpeg,.tif,.tiff"
+                            >
+
+                        </label>
+
+                        <p class="file-name" id="rgb-name">
+                            No image selected
+                        </p>
+
+                    </div>
+
+
+                    <!-- DEPTH IMAGE -->
+
+                    <div>
+
+                        <label class="upload-box"
+                               for="depth-image">
+
+                            <div class="upload-icon">
+                                ◈
+                            </div>
+
+                            <h3>Input Depth Map</h3>
+
+                            <p>
+                                Upload the corresponding
+                                low-resolution depth map
+                            </p>
+
+                            <span>
+                                PNG, JPG, TIFF, NPY, PFM
+                            </span>
+
+                            <input
+                                type="file"
+                                id="depth-image"
+                                accept=".png,.jpg,.jpeg,.tif,.tiff,.npy,.pfm"
+                            >
+
+                        </label>
+
+                        <p class="file-name" id="depth-name">
+                            No depth map selected
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- GROUND TRUTH UPLOAD -->
+
+                <div style="margin-top: 20px">
+
+                    <label class="field-label"
+                           for="gt-image">
+
+                        Ground Truth Depth Map (Optional)
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="gt-image"
+                        accept=".png,.jpg,.jpeg,.tif,.tiff,.npy,.pfm"
+                    >
+
+                    <p class="file-name" id="gt-name">
+                        No ground truth selected
+                    </p>
+
+                </div>
+
+
+                <!-- RECONSTRUCTION SETTINGS -->
+
+                <div class="settings-grid">
+
+
+                    <!-- SCALE -->
+
+                    <div>
+
+                        <label class="field-label"
+                               for="scale">
+
+                            Upscaling Factor
+
+                        </label>
+
+                        <select id="scale">
+
+                            <option value="2">2x</option>
+
+                            <option value="4" selected>
+                                4x
+                            </option>
+
+                            <option value="8">8x</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- METHOD -->
+
+                    <div>
+
+                        <label class="field-label"
+                               for="method">
+
+                            Reconstruction Method
+
+                        </label>
+
+                        <select id="method">
+
+                            <option value="nearest">
+                                Nearest
+                            </option>
+
+                            <option value="bilinear">
+                                Bilinear
+                            </option>
+
+                            <option value="bicubic">
+                                Bicubic
+                            </option>
+
+                            <option value="joint_bilateral">
+                                Joint Bilateral
+                            </option>
+
+                            <option value="guided">
+                                Guided Filter
+                            </option>
+
+                            <option value="hybrid" selected>
+                                Hybrid
+                            </option>
+
+                            <option value="deep">
+                                Deep
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- ACTION BUTTONS -->
+
+                <div class="action-row">
+
+                    <button
+                        class="primary-btn"
+                        id="run-button"
+                        onclick="runEstimation()">
+
+                        Run Reconstruction →
+
+                    </button>
+
+
+                    <button
+                        class="secondary-btn"
+                        onclick="resetForm()">
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+
+                <!-- STATUS MESSAGE -->
+
+                <p id="message" class="message"></p>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================
+             RECONSTRUCTION RESULTS
+        ================================== -->
+
+        <section id="results" class="section">
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Reconstruction Results</h2>
+
+                    <p>
+                        Visualize your processed depth maps
+                        and edge information.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="results-grid">
+
+
+                <!-- 1. ORIGINAL RGB IMAGE -->
+
+                <div class="result-card">
+
+                    <h3>Original RGB Image</h3>
+
+                    <div class="result-placeholder"
+                         id="original-rgb">
+
+                        <span>◫</span>
+
+                        <p>Waiting for input</p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 2. INPUT DEPTH MAP -->
+
+                <div class="result-card">
+
+                    <h3>Input Depth Map</h3>
+
+                    <div class="result-placeholder"
+                         id="input-depth">
+
+                        <span>◈</span>
+
+                        <p>Waiting for input</p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 3. RECONSTRUCTED DEPTH -->
+
+                <div class="result-card">
+
+                    <h3>Reconstructed Depth Map</h3>
+
+                    <div class="result-placeholder"
+                         id="refined-depth">
+
+                        <span>◈</span>
+
+                        <p>Waiting for reconstruction</p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 4. EDGE DETECTION -->
+
+                <div class="result-card">
+
+                    <h3>Edge Detection</h3>
+
+                    <div class="result-placeholder"
+                         id="edge-result">
+
+                        <span>⌁</span>
+
+                        <p>Waiting for processing</p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 5. BOUNDARY REFINEMENT -->
+
+                <div class="result-card">
+
+                    <h3>Boundary Refinement</h3>
+
+                    <div class="result-placeholder"
+                         id="boundary-result">
+
+                        <span>◇</span>
+
+                        <p>Waiting for processing</p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================
+                 EVALUATION METRICS
+            ================================== -->
+
+            <div class="metrics-panel hidden"
+                 id="metrics">
+
+                <h3>Evaluation Metrics</h3>
+
+                <div id="metrics-content"
+                     class="metrics-grid">
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 PROCESSING INFORMATION
+            ================================== -->
+
+            <div class="metrics-panel hidden"
+                 id="processing-info">
+
+                <h3>Processing Information</h3>
+
+                <div id="processing-content">
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================
+             FOOTER
+        ================================== -->
+
+        <footer>
+
+            EdgeDepthAI · Computer Vision & Depth Estimation
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>

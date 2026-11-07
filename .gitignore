@@ -1,0 +1,46 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment variables
+.env
+
+# Uploaded files
+uploads/*
+!uploads/.gitkeep
+
+# Generated outputs
+outputs/*
+!outputs/.gitkeep
+
+# Model checkpoints
+models/checkpoints/*.pth
+models/checkpoints/*.pt
+
+# Dataset files
+datasets/NYU_Depth_V2/*
+datasets/KITTI/*
+datasets/Middlebury/*
+
+# Logs
+*.log
+logs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Project archive
+Edge.zip
